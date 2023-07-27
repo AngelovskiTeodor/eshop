@@ -17,3 +17,8 @@
 .history
 .ionide
 
+#dependencies
+vendor/
+
+#environment variables
+.env*
