@@ -3,10 +3,12 @@ namespace Src\Service\Implementation;
 use Src\Service\ProductService;
 use Src\Model;
 
-class ProductserviceImplementation implements ProductService {
-    private static $product_repository;
+class ProductServiceImplementation implements ProductService {
+    private static $instance = null;
 
-    public function __construct($product_repository){
+    private $product_repository = null;
+
+    private function __construct($product_repository){
         $this->product_repository = $product_repository;
     }
 
@@ -32,5 +34,16 @@ class ProductserviceImplementation implements ProductService {
 
     public function deleteProducts($sku_list){
         $this->product_repository->deleteProducts($sku_list);
+    }
+
+    public static function getInstance($product_repository) {
+        if (self::$instance == null) {
+            self::$instance = new ProductServiceImplementation($product_repository);
+        }
+        return self::$instance;
+    }
+
+    private function __clone (){
+        return self::getInstance($this->product_repository)
     }
 }

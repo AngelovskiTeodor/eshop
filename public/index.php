@@ -17,9 +17,9 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $method = $_SERVER['REQUEST_METHOD'];
 
-$product_repository = new ProductRepositoryImplementation($db_connection);
-$product_service = new ProductServiceImplementation($product_repository);
-$product_controller = new ProductControllerImplementation($product_service);
+$product_repository = ProductRepositoryImplementation::getInstance($db_connection);
+$product_service = new ProductServiceImplementation::getInstance($product_repository);
+$product_controller = new ProductControllerImplementation::getInstance($product_service);
 
 $url = explode('/', $url);
 if (!isset($url[1]) || $url[1] !== 'api') {

@@ -5,9 +5,11 @@ use Src\Controller\Api\ProductController;
 use Src\Model\ProductFactory;
 
 class ProductControllerImplementation implements ProductController{
-    private $product_service;
+    private static $instance = null;
+    
+    private $product_service = null;
 
-    public function __construct($product_service){
+    private function __construct($product_service){
         $this->product_service = $product_service;
     }
 
@@ -74,5 +76,16 @@ class ProductControllerImplementation implements ProductController{
         $response['status_code_header'] = 'HTTP/1.1 404 Not Found';
         $response['body'] = $message;
         return $response;
+    }
+
+    public static function getInstance($product_service) {
+        if (self::$instance == null) {
+            self::$instance = new ProductControllerImplementation($product_service);
+        }
+        return self::$instance;
+    }
+
+    private function __clone (){
+        return self::getInstance($this->$product_service)
     }
 }

@@ -7,9 +7,11 @@ use Src\Service;
 use Src\Model;
 
 class ProductRepositoryImplementation implements ProductRepository {
-    private static $db_connection;
+    private static $instance == null;
+    
+    private $db_connection = null;
 
-    public function __construct($db_connection){
+    private function __construct($db_connection){
         $this->db_connection = $db_connection;
     }
 
@@ -77,5 +79,16 @@ class ProductRepositoryImplementation implements ProductRepository {
         } catch (\PDOException $exc) {
             exit($exc->getMessage());
         }
+    }
+
+    public static function getInstance($db_connection) {
+        if (self::$instance == null) {
+            self::$instance = new ProductRepositoryImplementation($db_connection);
+        }
+        return self::$instance;
+    }
+
+    private function __clone (){
+        return self::getInstance($this->db_connection)
     }
 }
