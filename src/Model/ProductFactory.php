@@ -9,7 +9,7 @@ use Src\Model\Furniture;
 class ProductFactory {
     private function __construct(){}
 
-    private static function createProduct($product_properties){
+    public static function createProduct($product_properties){
         $product_type = 'product';
         $book_type = 'book';
         $dvd_type = 'dvd';
@@ -50,5 +50,38 @@ class ProductFactory {
                 break;
             default:
                 throw new Exception("Unknown product type: $product_properties['type']");
+    }
+
+    public static function createFromRequest($props){
+        if (isset($porps['weight'])) {
+            return new Book(
+                $props['sku'],
+                $props['name'],
+                $props['price'],
+                $props['weight']
+            );
+        } elseif (isset($porps['size'])) {
+            return new DVD(
+                $props['sku'],
+                $props['name'],
+                $props['price'],
+                $props['size']
+            );
+        } elseif (isset($porps['height'])) {
+            return new Furniture(
+                $props['sku'],
+                $props['name'],
+                $props['price'],
+                $props['height'],
+                $props['width'],
+                $props['length']
+            );
+        } else {
+            return new Product(
+                $props['sku'],
+                $props['name'],
+                $props['price']
+            );
+        }
     }
 }
