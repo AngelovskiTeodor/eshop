@@ -1,11 +1,15 @@
 <?php
 namespace Src\Model;
+use Src\Model\Product;
+use Src\GeneralUtilities;
 
 class DVD extends Product {
+    public const COLUMN_NAMES = 'sku, name, price, type, size';
+
     private $size;
 
     public function __construct(string $sku, string $name, string $price, string $size){
-        parent::__construct(string $sku, string $name, string $price);
+        parent::__construct($sku, $name, $price);
         setSize($size);
     }
 
@@ -15,5 +19,18 @@ class DVD extends Product {
 
     public function setSize($size) {
         $this->size = $size;
+    }
+
+    public function getSaveQuery($table_name){
+        $values = self::getQueryValues();
+        $type = 'dvd';
+        $size = $this->getSize();
+        $values[] = $type;
+        $values[] = $size;
+        $values = GeneralUtilities::quoteAndconcat($values, ', ');
+
+        $query = "INSERT INTO $table_name (DVD::COLUMN_NAMES) VALUES ($values);";
+        
+        return $query;
     }
 }

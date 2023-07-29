@@ -1,7 +1,11 @@
 <?php
 namespace Src\Model;
+use Src\Model\Product;
+use Src\GeneralUtilities;
 
 class Furniture extends Product {
+    public const COLUMN_NAMES = 'sku, name, price, type, height, width, length';
+
     private $height;
     private $width;
     private $length;
@@ -35,5 +39,22 @@ class Furniture extends Product {
 
     public function setLength($length) {
         $this-> = $length;
+    }
+
+    public function getSaveQuery($table_name){
+        $values = self::getQueryValues();
+        $type = 'furniture';
+        $height = $this->getHeight();
+        $width = $this->getWidth();
+        $length = $this->getLength();
+        $values[] = $type;
+        $values[] = $height;
+        $values[] = $width;
+        $values[] = $length;
+        $values = GeneralUtilities::quoteAndconcat($values, ', ');
+        
+        $query = "INSERT INTO $table_name (Furniture::COLUMN_NAMES) VALUES ($values);";
+        
+        return $query;
     }
 }
