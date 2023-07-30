@@ -10,5 +10,5 @@ interface ProductController {
     public function updateProduct($product);
     public function deleteProduct($sku);
     public function deleteProducts($sku_list);
-    public function invalidRequest();
+    public function invalidRequest($message);
 }

@@ -86,6 +86,6 @@ class ProductControllerImplementation implements ProductController{
     }
 
     private function __clone (){
-        return self::getInstance($this->$product_service)
+        return self::getInstance($this->$product_service);
     }
 }

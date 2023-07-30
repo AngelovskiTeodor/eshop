@@ -89,6 +89,6 @@ class ProductRepositoryImplementation implements ProductRepository {
     }
 
     private function __clone (){
-        return self::getInstance($this->db_connection)
+        return self::getInstance($this->db_connection);
     }
 }

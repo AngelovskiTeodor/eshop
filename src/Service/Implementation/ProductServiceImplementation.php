@@ -44,6 +44,6 @@ class ProductServiceImplementation implements ProductService {
     }
 
     private function __clone (){
-        return self::getInstance($this->product_repository)
+        return self::getInstance($this->product_repository);
     }
 }
