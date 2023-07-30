@@ -12,7 +12,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 $url = explode('/', $url);
 if (!isset($url[1]) || $url[1] !== 'api') {
-    return json_encode($product_controller->invalidRequest('Invalid URL path'))
+    return json_encode($product_controller->invalidRequest('Invalid URL path'));
 }
 
 return json_encode($product_controller->processRequest($method));

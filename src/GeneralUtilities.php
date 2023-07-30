@@ -32,6 +32,6 @@ class GeneralUtilities {
     public static function quoteAndConcat($strings, $separator){
         $ret = quoteStringList($strings);
         $ret = concatStringList($ret, $separator);
-        return $ret
+        return $ret;
     }
 }
