@@ -3,9 +3,11 @@ namespace Src\System;
 
 class DatabaseConnector {
 
+    private static $instance = null;
+
     private $db_connection = null;
     
-    public function __construct(){
+    private function __construct(){
         $db_host = getenv('DB_HOST');
         $db_port = getenv('DB_PORT');
         $db_name = getenv('DB_DATABASE');
@@ -25,5 +27,16 @@ class DatabaseConnector {
 
     public function getConnection(){
         return $this->db_connection;
+    }
+
+    public static getInstance() {
+        if (self::$instance == null) {
+            self::$instance = new DatabaseConnector();
+        }
+        return self::$instance;
+    }
+
+    public function __clone() {
+        return self::getInstance();
     }
 }
