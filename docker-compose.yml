@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  eshop_api:
+    build: ./docker/
+    depends_on:
+      - db
+    ports:
+      - "80:80"
+    image: eshop_api_img
+    container_name: eshop_api
+
+  db:
+    image: mysql:8-oracle
+    container_name: eshop_db
+    ports:
+      - "3306:3306"
+    
+  client:
+    build: ./client/docker/
+    depends_on:
+      - eshop_api
+    ports:
+      - "3000:3000"
+    image: eshop_client_img
+    container_name: eshop_client
