@@ -35,14 +35,15 @@ class ProductControllerImplementation implements ProductController{
                     $sku = $_GET['sku'];
                     return $this->deleteProduct($sku);
                 }
-                elseif (isset(_POST['sku_list'])) {
-                    $sku_list = json_decode($_POST['sku_list']);
-                    return $this->deleteProducts($sku_list);
-                }
                 else {
-                return $this->invalidRequest('Missing sku.');
+                    return $this->invalidRequest('Missing sku.');
                 }
                 break;
+            case 'PATCH':
+                if (isset($_PATCH['sku_list'])) {
+                    $sku_list = json_decode($_PATCH['sku_list']);
+                    return $this->deleteProducts($sku_list);
+                }
             default:
                 return $this->invalidRequest('Unknown HTTP method.');
         }
