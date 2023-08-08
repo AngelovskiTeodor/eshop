@@ -1,29 +1,29 @@
-import products_api from "../lib/axios";
+import productsApi from "../lib/axios";
 import IProductApiData from "../types/IProductApiData";
 
 class ProductsService {
     getAllProducts() {
-        return products_api.get<Array<IProductApiData>>("");
+        return productsApi.get<Array<IProductApiData>>("");
     }
 
     getProduct(sku: string){
-        return products_api.get<IProductApiData>(`?sku=${sku}`);
+        return productsApi.get<IProductApiData>(`?sku=${sku}`);
     }
 
     createProduct(product: IProductApiData){
-        return products_api.post("", product);
+        return productsApi.post("", product);
     }
 
     updateProduct(product: IProductApiData){
-        return products_api.put("", product);
+        return productsApi.put("", product);
     }
 
     deleteProduct(sku: string){
-        return products_api.delete(`?sku=${sku}`);
+        return productsApi.delete(`?sku=${sku}`);
     }
 
     deleteProducts(sku_list: Array<string>){
-        return products_api.patch("", sku_list);
+        return productsApi.patch("", sku_list);
     }
 }
 

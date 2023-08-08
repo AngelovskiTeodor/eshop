@@ -12,7 +12,7 @@ abstract class Product {
     }
 
     get price() {
-        return this._price;
+        return this._price + " $";
     }
 
     abstract additionalProperties(): string

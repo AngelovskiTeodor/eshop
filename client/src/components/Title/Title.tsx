@@ -5,7 +5,7 @@ interface ITitleProps {
 }
 
 const Title: FC<ITitleProps> = ({ text }) => {
-    return <h1>{text}</h1>;
+    return (<h1>{text}</h1>);
 }
 
 export default Title;
