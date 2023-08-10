@@ -1,27 +1,29 @@
 import React, {FC} from "react";
 import productsApi from "../../lib/axios";
-import ProductCard from '../';
+import ProductCard from "../../components/ProductCard/ProductCard";
 import Header from "../../layouts/Header";
 import Footer from "../../layouts/Footer";
 import { useState } from "react";
 import IButtonProps from "../../types/IButtonProps";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Product from "../../types/Product";
 
 const ProductList: FC = () => {
+    const navigate = useNavigate();
     const [productsList, setProductsList] = useState(new Array<Product>(0));
 
     const buttonProps = new Array<IButtonProps> (2);
     buttonProps[0] = {
         text: "ADD",
-        behaviour: (event: any) => {
+        behaviour: (event: MouseEvent) => {
+            console.log("ProductList: redirecting to /add-product")
             event.preventDefault();
-            return redirect("/add-product");
+            return navigate("/add-product");
         }
     }
     buttonProps[1] = {
         text: "MASS DELETE",
-        behaviour: (event: any) => {
+        behaviour: (event: MouseEvent) => {
             event.preventDefault();
             throw new Error("Not implemented");
         }
