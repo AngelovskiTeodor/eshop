@@ -1,25 +1,21 @@
 import React, {FC} from 'react';
-import Button from '../components/Button';
-import Title from '../components/Title';
+import Button from '../components/Button/Button';
+import Title from '../components/Title/Title';
+import IButtonProps from '../types/IButtonProps';
 
-interface ButtonProps {
-    text: string,
-    behaviour: Object
-}
-
-interface HeaderProps {
+interface IHeaderProps {
     title: string,
-    buttons: Array<ButtonProps>
+    buttons: Array<IButtonProps>
 }
 
-const Header: FC<HeaderProps> = ({ title, buttons }) => {
+const Header: FC<IHeaderProps> = ({ title, buttons }) => {
     const renderedButtons = buttons.map(button => (
         <Button text={button.text} behaviour={button.behaviour} />
     ));
-    return <>
+    return (<>
     <Title text={title} />
     {renderedButtons}
-    </>
+    </>)
 }
 
 export default Header;

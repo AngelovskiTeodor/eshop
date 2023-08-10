@@ -5,7 +5,7 @@ interface ISubtitleProps {
 }
 
 const Subtitle: FC<ISubtitleProps> = ({ text }) => {
-    return <h2>{text}</h2>;
+    return (<h2>{text}</h2>);
 }
 
 export default Subtitle;
