@@ -4,6 +4,7 @@ import Header from '../../layouts/Header';
 import ProductFactory from '../../utils/ProductFactory';
 import IButtonProps from '../../types/IButtonProps';
 import { useNavigate } from 'react-router-dom';
+import ProductsService from '../../services/ProductsService';
 
 const AddProduct:FC = () => {
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ const AddProduct:FC = () => {
         }
         const newProduct = ProductFactory(newProductProps);
         console.log("AddProduct: newProduct: "+ newProduct);
-        throw new Error("Not implemented");
+        ProductsService.createProduct(newProduct);  //(newProductProps);
     }
 
     const clearForm: Function = () => {
@@ -57,7 +58,7 @@ const AddProduct:FC = () => {
         if (event) event.preventDefault();
         console.log("AddProduct: handling submit")
         saveNewProduct();
-        throw new Error("Not Implemented");
+        navigate("/");
     }
 
     const handleSkuChange = (event: SyntheticEvent) => {
