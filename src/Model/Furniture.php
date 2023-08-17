@@ -12,9 +12,9 @@ class Furniture extends Product {
 
     public function (string $sku, string $name, string $price, string $height, string $width, string $length) {
         parent::__construct($sku, $name, $price);
-        setHeight($height);
-        setWidth($width);
-        setLength($length);
+        $this->setHeight($height);
+        $this->setWidth($width);
+        $this->setLength($length);
     }
 
     public function getHeight() {
@@ -53,7 +53,7 @@ class Furniture extends Product {
         $values[] = $length;
         $values = GeneralUtilities::quoteAndconcat($values, ', ');
         
-        $query = "INSERT INTO $table_name (Furniture::COLUMN_NAMES) VALUES ($values);";
+        $query = "INSERT INTO $table_name (".Furniture::COLUMN_NAMES.") VALUES (".$values.");";
         
         return $query;
     }

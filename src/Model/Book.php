@@ -10,7 +10,7 @@ class Book extends Product {
 
     public function __construct (string $sku, string $name, string $price, string $weight){
         parent::__construct($sku, $name, $price);
-        setWeight($weight);
+        $this->setWeight($weight);
     }
 
     public function getWeight(){
@@ -29,7 +29,7 @@ class Book extends Product {
         $values[] = $weight;
         $values = GeneralUtilities::quoteAndConcat($values, ', ');
 
-        $query = "INSERT INTO $table_name (Book::COLUMN_NAMES) VALUES ($values);";
+        $query = "INSERT INTO $table_name (".Book::COLUMN_NAMES.") VALUES (".$values.");";
 
         return $query;
     }

@@ -14,9 +14,9 @@ class ProductControllerImplementation implements ProductController{
     }
 
     public function processRequest($request_method){
-        switch $request_method{
+        switch ($request_method) {
             case 'GET':
-                if isset($_GET['sku']) {
+                if (isset($_GET['sku'])) {
                     $sku = $_GET['sku'];
                     return $this->getProduct($sku);
                 }
@@ -31,7 +31,7 @@ class ProductControllerImplementation implements ProductController{
                 return $this->updateProduct($product);
                 break;
             case 'DELETE':
-                if isset($_GET['sku']){
+                if (isset($_GET['sku'])) {
                     $sku = $_GET['sku'];
                     return $this->deleteProduct($sku);
                 }
@@ -50,7 +50,10 @@ class ProductControllerImplementation implements ProductController{
     }
 
     public function getAllProducts(){
-        return $this->product_service->getAllProducts();
+        $ret = $this->product_service->getAllProducts();
+        error_log("The all products are: ".print_r($ret, true));     //  debugging
+        error_log("The JSON of all products is: ".json_encode($ret));   //  debugging
+        return $ret;
     }
 
     public function getProduct($sku){
@@ -58,7 +61,7 @@ class ProductControllerImplementation implements ProductController{
     }
 
     public function createProduct($product){
-        return this->product_service->createProduct($product);
+        return $this->product_service->createProduct($product);
     }
 
     public function updateProduct($product){
@@ -74,6 +77,7 @@ class ProductControllerImplementation implements ProductController{
     }
 
     public function invalidRequest($message){
+        error_log($message);
         $response['status_code_header'] = 'HTTP/1.1 404 Not Found';
         $response['body'] = $message;
         return $response;

@@ -29,7 +29,7 @@ class DatabaseConnector {
         return $this->db_connection;
     }
 
-    public static getInstance() {
+    public static function getInstance() {
         if (self::$instance == null) {
             self::$instance = new DatabaseConnector();
         }

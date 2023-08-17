@@ -7,7 +7,7 @@ use Src\Service;
 use Src\Model;
 
 class ProductRepositoryImplementation implements ProductRepository {
-    private static $instance == null;
+    private static $instance = null;
     
     private $db_connection = null;
 
@@ -16,15 +16,15 @@ class ProductRepositoryImplementation implements ProductRepository {
     }
 
     public function findAll(){
-        $query = generateFindAllQuery();
+        $query = QueryUtilities::generateFindAllQuery();
         try{
             $query = $this->db_connection->prepare($query);
             $query->execute();
             $products_raw = $query->fetchAll(\PDO::FETCH_ASSOC);
             $products = [];
             foreach ($products_raw as $product_props){
-                $product = new ProductFactory::createProduct($product_props);
-                products[] = $product;
+                $product = ProductFactory::createProduct($product_props);
+                $products[] = $product;
             }
             return $products;
         } catch (\PDOException $exc){
@@ -33,7 +33,7 @@ class ProductRepositoryImplementation implements ProductRepository {
     }
 
     public function findBySku($sku){
-        $query = generateFindBySkuQuery($sku);
+        $query = QueryUtilities::generateFindBySkuQuery($sku);
         try{
             $query = $this->db_connection->prepare($query);
             $query->execute();
@@ -46,7 +46,7 @@ class ProductRepositoryImplementation implements ProductRepository {
     }
 
     public function save($product){
-        $query = generateSaveQuery($);
+        $query = QueryUtilities::generateSaveQuery($product);
         try {
             $query = $this->db_connection->prepare($query);
             $query->execute();
@@ -58,7 +58,7 @@ class ProductRepositoryImplementation implements ProductRepository {
     }
 
     public function delete($sku){
-        $query = generateDeleteQuery($sku);
+        $query = QueryUtilities::generateDeleteQuery($sku);
         try {
             $query = $this->db_connection->prepare($query);
             $query->execute();
@@ -70,7 +70,7 @@ class ProductRepositoryImplementation implements ProductRepository {
     }
 
     public function deleteProducts($sku_list){
-        $query = generateDeleteProductsQuery($sku_list);
+        $query = QueryUtilities::generateDeleteProductsQuery($sku_list);
         try {
             $query = $this->db_connection->prepare($query);
             $query->execute();

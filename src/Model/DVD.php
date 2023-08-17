@@ -10,7 +10,7 @@ class DVD extends Product {
 
     public function __construct(string $sku, string $name, string $price, string $size){
         parent::__construct($sku, $name, $price);
-        setSize($size);
+        $this->setSize($size);
     }
 
     public function getSize() {
@@ -29,7 +29,7 @@ class DVD extends Product {
         $values[] = $size;
         $values = GeneralUtilities::quoteAndconcat($values, ', ');
 
-        $query = "INSERT INTO $table_name (DVD::COLUMN_NAMES) VALUES ($values);";
+        $query = "INSERT INTO $table_name (".DVD::COLUMN_NAMES.") VALUES (".$values.");";
         
         return $query;
     }

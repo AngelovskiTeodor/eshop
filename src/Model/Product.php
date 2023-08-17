@@ -1,7 +1,6 @@
 <?php
 namespace Src\Model;
 use Src\GeneralUtilities;
-use Src\GeneralUtilities;
 
 class Product {
     public const COLUMN_NAMES = 'sku, name, price, type';
@@ -11,9 +10,9 @@ class Product {
     private $price;
 
     public function __construct(string $sku, string $name, string $price){
-        setSku($sku);
-        setName($name);
-        setPrice($price);
+        $this->setSku($sku);
+        $this->setName($name);
+        $this->setPrice($price);
     }
 
     public function getSku () {
@@ -54,7 +53,7 @@ class Product {
         $values[] = $type;
         $values = GeneralUtilities::quoteAndConcat($values, ', ');
 
-        $query = "INSERT INTO $table_name (Product::COLUMN_NAMES) VALUES ($values);";
+        $query = "INSERT INTO $table_name (".Product::COLUMN_NAMES.") VALUES (".$values.");";
         
         return $query;
     }

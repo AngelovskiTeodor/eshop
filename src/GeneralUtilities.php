@@ -5,33 +5,33 @@ class GeneralUtilities {
     private function __construct(){} 
 
     public static function quote($str){
-        return '\'' . $str '\'';
+        return "'" . $str . "'";
     }
 
     public static function quoteStringList($strings) {
         $ret = array();
         foreach ($strings as $str) {
-            $ret[] = quote($str);
+            $ret[] = GeneralUtilities::quote($str);
         }
         return $ret;
     }
 
     public static function concatStringList($strings, $separator){
         $ret = '';
-        foreach ($strings as $str => $index) {
+        foreach ($strings as $index => $str) {
             if ($index === array_key_first($strings)) {
-                ret .= $str;
+                $ret .= $str;
             }
             else {
-                ret .= ($separator . $str);
+                $ret .= ($separator . $str);
             }
         }
-        return ret;
+        return $ret;
     }
 
     public static function quoteAndConcat($strings, $separator){
-        $ret = quoteStringList($strings);
-        $ret = concatStringList($ret, $separator);
+        $ret = GeneralUtilities::quoteStringList($strings);
+        $ret = GeneralUtilities::concatStringList($ret, $separator);
         return $ret;
     }
 }

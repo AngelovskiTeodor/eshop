@@ -1,9 +1,11 @@
-FROM eshop_client as base
+FROM eshop_client_base_img as base
 
 WORKDIR /client
 
-COPY . .
+COPY ./client .
 
-EXPOSE 3000
+RUN npm install
 
-CMD npm run dev
+EXPOSE 5173
+
+CMD ["npm", "run", "dev", "--", "--host"]

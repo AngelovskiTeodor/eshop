@@ -14,7 +14,7 @@ class ProductFactory {
         $book_type = 'book';
         $dvd_type = 'dvd';
         $furniture_type = 'furniture';
-        switch $product_properties['type']:
+        switch ($product_properties['type']) {
             case $product_type:
                 return new Product(
                     $product_properties['sku'],
@@ -49,7 +49,8 @@ class ProductFactory {
                 );
                 break;
             default:
-                throw new Exception("Unknown product type: $product_properties['type']");
+                throw new \RuntimeException("Unknown product type: ".$product_properties['type']);
+        }
     }
 
     public static function createFromRequest($props){
