@@ -21,6 +21,13 @@ class Book extends Product {
         $this->weight = $weight;
     }
 
+    public function jsonSerialize():mixed {
+        $ret = parent::jsonSerialize();
+        $ret['type'] = 'book';
+        $ret['weight'] = $this->getWeight();
+        return $ret;
+    }
+
     public function getSaveQuery($table_name){
         $values = self::getQueryValues();
         $type = 'book';

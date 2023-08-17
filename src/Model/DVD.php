@@ -21,6 +21,13 @@ class DVD extends Product {
         $this->size = $size;
     }
 
+    public function jsonSerialize():mixed {
+        $ret = parent::jsonSerialize();
+        $ret['type'] = 'dvd';
+        $ret['size'] = $this->getSize();
+        return $ret;
+    }
+
     public function getSaveQuery($table_name){
         $values = self::getQueryValues();
         $type = 'dvd';

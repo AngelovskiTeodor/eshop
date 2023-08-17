@@ -1,8 +1,9 @@
 <?php
 namespace Src\Model;
 use Src\GeneralUtilities;
+use JsonSerializable;
 
-class Product {
+class Product implements JsonSerializable {
     public const COLUMN_NAMES = 'sku, name, price, type';
 
     private $sku;
@@ -37,6 +38,16 @@ class Product {
 
     public function setPrice (string $price) {
         $this->price = $price;
+    }
+
+    public function jsonSerialize():mixed {
+        $ret = [
+            'sku' => $this->getSku(),
+            'name' => $this->getName(),
+            'price' => $this->getPrice(),
+            'type' => 'product'
+        ];
+        return $ret;
     }
 
     protected function getQueryValues(){

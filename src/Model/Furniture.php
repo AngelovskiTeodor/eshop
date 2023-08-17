@@ -41,6 +41,15 @@ class Furniture extends Product {
         $this-> = $length;
     }
 
+    public function jsonSerialize():mixed {
+        $ret = parent::jsonSerialize();
+        $ret['type'] = 'furniture';
+        $ret['height'] = $this->getHeight();
+        $ret['width'] = $this->getWidth();
+        $ret['length'] = $this->getLength();
+        return $ret;
+    }
+
     public function getSaveQuery($table_name){
         $values = self::getQueryValues();
         $type = 'furniture';
