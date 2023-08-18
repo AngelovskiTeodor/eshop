@@ -54,21 +54,21 @@ class ProductFactory {
     }
 
     public static function createFromRequest($props){
-        if (isset($porps['weight'])) {
+        if (array_key_exists('weight', $props)) {
             return new Book(
                 $props['sku'],
                 $props['name'],
                 $props['price'],
                 $props['weight']
             );
-        } elseif (isset($porps['size'])) {
+        } elseif (array_key_exists('size', $props)) {
             return new DVD(
                 $props['sku'],
                 $props['name'],
                 $props['price'],
                 $props['size']
             );
-        } elseif (isset($porps['height'])) {
+        } elseif (array_key_exists('height', $props)) {
             return new Furniture(
                 $props['sku'],
                 $props['name'],

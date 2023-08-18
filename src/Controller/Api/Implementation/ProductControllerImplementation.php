@@ -50,10 +50,7 @@ class ProductControllerImplementation implements ProductController{
     }
 
     public function getAllProducts(){
-        $ret = $this->product_service->getAllProducts();
-        error_log("The all products are: ".print_r($ret, true));     //  debugging
-        error_log("The JSON of all products is: ".json_encode($ret));   //  debugging
-        return $ret;
+        return $this->product_service->getAllProducts();
     }
 
     public function getProduct($sku){
