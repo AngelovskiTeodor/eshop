@@ -1,5 +1,4 @@
 import React, {FC, useEffect} from "react";
-import productsApi from "../../lib/axios";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Header from "../../layouts/Header";
 import Footer from "../../layouts/Footer";
@@ -30,7 +29,7 @@ const ProductList: FC = () => {
                         setProductsList(products);
                     }
                 )
-        }
+        },[]
     );
 
     const buttonProps = new Array<IButtonProps> (2);

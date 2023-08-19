@@ -15,7 +15,7 @@ abstract class Product {
         return this._price + " $";
     }
 
-    abstract additionalProperties(): string
+    additionalProperties: string | null = null;
 
     constructor(sku: string, name: string, price:string) {
         this._sku = sku;

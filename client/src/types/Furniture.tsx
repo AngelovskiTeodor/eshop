@@ -11,10 +11,6 @@ class Furniture extends Product {
         this.width = width;
         this.length = length;
     }
-
-    additionalProperties(): string {
-        return this.height+"x"+this.width+"x"+this.length;
-    }
 }
 
 export default Furniture;

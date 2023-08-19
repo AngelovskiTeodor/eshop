@@ -12,10 +12,6 @@ class DVD extends Product {
         super(sku, name, price);
         this._size = size;
     }
-
-    additionalProperties(): string {
-        return this.size;
-    }
 }
 
 export default DVD;

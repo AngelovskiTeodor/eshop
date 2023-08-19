@@ -12,10 +12,6 @@ class Book extends Product {
         super(sku, name, price);
         this._weight = weight;
     }
-
-    additionalProperties(): string {
-        return this.weight;
-    }
 }
 
 export default Book;
