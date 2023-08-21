@@ -25,8 +25,9 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  display: block;
+  /*place-items: start;*/
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -36,7 +37,28 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+.header {
+  display: inline-flex;
+  width: 100%;
+}
+
+.header > h1 {
+  display: inline-block;
+  float: left;
+}
+
+.buttons-container {
+  display: inline-block;
+  float: right;
+  height: inherit;
+  margin-top: auto;
+  margin-left: auto;
+  margin-bottom: auto;
+}
+
+.buttons-container > input {
+  margin-top: auto;
+  margin-bottom: auto;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -47,11 +69,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+.buttons-container > input:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
+.buttons-container > input:focus,
+.buttons-container > input:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
@@ -63,7 +85,7 @@ button:focus-visible {
   a:hover {
     color: #747bff;
   }
-  button {
+  .buttons-container > input {
     background-color: #f9f9f9;
   }
 }

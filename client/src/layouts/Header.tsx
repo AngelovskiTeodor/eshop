@@ -12,10 +12,10 @@ const Header: FC<IHeaderProps> = ({ title, buttons }) => {
     const renderedButtons = buttons.map(button => (
         <Button text={button.text} behaviour={button.behaviour} />
     ));
-    return (<>
-    <Title text={title} />
-    {renderedButtons}
-    </>)
+    return (<div className='header'>
+        <Title text={title} />
+        <div className='buttons-container'>{renderedButtons}</div>
+    </div>);
 }
 
 export default Header;
