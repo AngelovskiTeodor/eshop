@@ -33,7 +33,7 @@ const AddProduct:FC = () => {
         }
         const newProduct = ProductFactory(newProductProps);
         console.log("AddProduct: newProduct: "+ newProduct);
-        ProductsService.createProduct(newProduct);  //(newProductProps);
+        ProductsService.createProduct(newProduct);
     }
 
     const clearForm: Function = () => {

@@ -11,7 +11,7 @@ class ProductsService {
     }
 
     createProduct(product: IProductApiData){
-        return productsApi.post("", product);
+        return productsApi.postForm<any>("", product);
     }
 
     updateProduct(product: IProductApiData){
