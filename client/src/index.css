@@ -40,6 +40,10 @@ h1 {
 .header {
   display: inline-flex;
   width: 100%;
+  border-bottom: #1a1a1a;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  margin-bottom: 1em;
 }
 
 .header > h1 {
@@ -75,6 +79,28 @@ h1 {
 .buttons-container > input:focus,
 .buttons-container > input:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.input-field {
+  display: flex;
+  padding: 0.2em;
+}
+
+.input-field > * {
+  display: inline-block;
+  width: 15em;
+  text-align: left;
+}
+
+.input-field > span {
+  width: auto;
+}
+
+.footer {
+  margin-top: 1em;
+  border-top: #1a1a1a;
+  border-top-style: solid;
+  border-top-width: 3px;
 }
 
 @media (prefers-color-scheme: light) {
