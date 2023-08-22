@@ -151,52 +151,75 @@ const AddProduct:FC = () => {
         <>
         <Header title="Product Add" buttons={buttonProps}/>
         <form onSubmit={handleSubmit} id='product_form'>
-            <label>Sku</label>
-            <input type='text' id='sku' onChange={handleSkuChange}/>
+            <div className='input-field'>
+                <label>Sku</label>
+                <input type='text' id='sku' onChange={handleSkuChange}/>
+            </div>
 
-            <label>Name</label>
-            <input type='text' id='name' onChange={handleNameChange}/>
+            <div className='input-field'>
+                <label>Name</label>
+                <input type='text' id='name' onChange={handleNameChange}/>
+            </div>
 
-            <label>Price ($)</label>
-            <input type='text' id='price' onChange={handlePriceChange}/>
+            <div className='input-field'>
+                <label>Price ($)</label>
+                <input type='text' id='price' onChange={handlePriceChange}/>
+            </div>
 
-            <label>Type Switcher</label>
-            <select id='productType' onChange={handleProductTypeChange}>
-                <option value="">Type</option>
-                <option value="Book">Book</option>
-                <option value="DVD">DVD</option>
-                <option value="Furniture">Furniture</option>
-            </select>
-
+            <div className='input-field'>
+                <label>Type Switcher</label>
+                <select id='productType' onChange={handleProductTypeChange}>
+                    <option value="">Type</option>
+                    <option value="Book">Book</option>
+                    <option value="DVD">DVD</option>
+                    <option value="Furniture">Furniture</option>
+                </select>
+            </div>
             {
                 productType === "Book" &&
                 <>
-                    <label>Weight (KG)</label>
-                    <input type='text' id='weight' onChange={handleWeightChange}/>
-                    <span className='product-description'>Please provide the weight of the Book in KG</span>
+                    <div className='input-field'>
+                        <label>Weight (KG)</label>
+                        <input type='text' id='weight' onChange={handleWeightChange}/>
+                    </div>
+                    <div className='input-field'>
+                        <span className='product-description'>Please provide the weight of the Book in KG</span>
+                    </div>
                 </>
             }
             {
                 productType === "DVD" &&
                 <>
-                    <label>Size (MB)</label>
-                    <input type='text' id='size' onChange={handleSizeChange}/>
-                    <span className='product-description'>Please provide memory capacity of the Disc in MB</span>
+                    <div className='input-field'>
+                        <label>Size (MB)</label>
+                        <input type='text' id='size' onChange={handleSizeChange}/>
+                    </div>
+                    <div className='input-field'>
+                        <span className='product-description'>Please provide memory capacity of the Disc in MB</span>
+                    </div>
                 </>
             }
             {
                 productType === "Furniture" &&
                 <>
-                    <label>Height (CM)</label>
-                    <input type='text' id='weight' onChange={handleHeightChange}/>
+                    <div className='input-field'>
+                        <label>Height (CM)</label>
+                        <input type='text' id='weight' onChange={handleHeightChange}/>
+                    </div>
 
-                    <label>Width (CM)</label>
-                    <input type='text' id='width' onChange={handleWidthChange}/>
+                    <div className='input-field'>
+                        <label>Width (CM)</label>
+                        <input type='text' id='width' onChange={handleWidthChange}/>
+                    </div>
 
-                    <label>Length (CM)</label>
-                    <input type='text' id='length' onChange={handleLengthChange}/>
+                    <div className='input-field'>
+                        <label>Length (CM)</label>
+                        <input type='text' id='length' onChange={handleLengthChange}/>
+                    </div>
 
-                    <span className='product-description'>Please provide dimensions of this Furniture in CM</span>
+                    <div className='input-field'>
+                        <span className='product-description'>Please provide dimensions of this Furniture in CM</span>
+                    </div>
                 </>
             }
         </form>

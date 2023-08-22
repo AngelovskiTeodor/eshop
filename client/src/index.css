@@ -25,8 +25,9 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  display: block;
+  /*place-items: start;*/
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -36,7 +37,32 @@ h1 {
   line-height: 1.1;
 }
 
-button {
+.header {
+  display: inline-flex;
+  width: 100%;
+  border-bottom: #f9f9f9;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  margin-bottom: 1em;
+}
+
+.header > h1 {
+  display: inline-block;
+  float: left;
+}
+
+.buttons-container {
+  display: inline-block;
+  float: right;
+  height: inherit;
+  margin-top: auto;
+  margin-left: auto;
+  margin-bottom: auto;
+}
+
+.buttons-container > input {
+  margin-top: auto;
+  margin-bottom: auto;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -47,12 +73,60 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
+.buttons-container > input:hover {
   border-color: #646cff;
 }
-button:focus,
-button:focus-visible {
+.buttons-container > input:focus,
+.buttons-container > input:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.product-cards-container {
+  display: block;
+  width: inherit;
+}
+
+.product-card {
+  min-width: 320px;
+  width: 320px;
+  max-width: 320px;
+  margin: 2em;
+  margin-top: 0.5em;
+  margin-bottom: 1.5em;
+  display: block;
+  float: left;
+  box-shadow: 5px 3px 10px 2px darkgrey;
+  border-radius: 8px;
+  border-style: solid;
+  border-color: darkslategrey;
+  background-color: darkslategrey;
+  transition: 0.3s;
+}
+
+.product-card:hover {
+  box-shadow: 0 0 10px 5px navy;
+}
+
+.input-field {
+  display: flex;
+  padding: 0.2em;
+}
+
+.input-field > * {
+  display: inline-block;
+  width: 15em;
+  text-align: left;
+}
+
+.input-field > span {
+  width: auto;
+}
+
+.footer {
+  margin-top: 1em;
+  border-top: #f9f9f9;
+  border-top-style: solid;
+  border-top-width: 3px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -60,10 +134,30 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
+  .header {
+    border-bottom: #1a1a1a;
+  }
+
   a:hover {
     color: #747bff;
   }
-  button {
+  .buttons-container > input {
     background-color: #f9f9f9;
   }
+
+  .product-card {
+    box-shadow: 5px 3px 10px 2px lightgrey;
+    border-color: aliceblue;
+    background-color: aliceblue;
+  }
+
+  .product-card:hover {
+    box-shadow: 0 0 10px 5px lightblue;
+  }
+
+  .footer {
+    border-top: #1a1a1a;
+  }
+
 }

@@ -53,13 +53,15 @@ const ProductList: FC = () => {
         <>
             <Header title="Product List" buttons={buttonProps} />
             
-            {productsList.length > 0 && 
-                productsList.map(
-                    (product: Product) => (
-                        <ProductCard key={product.sku} product={product}/>
+            <div className="product-cards-container">
+                {productsList.length > 0 && 
+                    productsList.map(
+                        (product: Product) => (
+                            <ProductCard key={product.sku} product={product}/>
+                        )
                     )
-                )
-            }
+                }
+            </div>
 
             <Footer />
         </>
