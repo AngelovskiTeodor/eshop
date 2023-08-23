@@ -10,8 +10,8 @@ class ProductsService {
         return productsApi.get<IProductApiData>(`?sku=${sku}`);
     }
 
-    createProduct(product: IProductApiData){
-        return productsApi.postForm<any>("", product);
+    async createProduct(product: IProductApiData){
+        return productsApi.postForm<any>("", product).then((res) => {console.log("response is"); console.log(res)});
     }
 
     updateProduct(product: IProductApiData){

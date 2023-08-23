@@ -5,15 +5,15 @@ import Furniture from "../types/Furniture";
 import IProductApiData from "../types/IProductApiData";
 
 const bookAdditionalProperties = (book: Book) => {
-    return book.weight;
+    return "Weight: " + book.weight + "KG";
 }
 
 const dvdAdditionalProperties = (dvd: DVD) => {
-    return dvd.size;
+    return "Size: " + dvd.size + " MB";
 }
 
 const furnitureAdditionalProperties = (furniture: Furniture) => {
-    return furniture.height+"x"+furniture.width+"x"+furniture.length;
+    return "Dimension: "+furniture.height+"x"+furniture.width+"x"+furniture.length;
 }
 
 function ProductFactory (props: IProductApiData): Product {

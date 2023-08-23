@@ -19,7 +19,7 @@ const AddProduct:FC = () => {
     const [width, setWidth] = useState<string | null>(null);
     const [length, setLength] = useState<string | null>(null);
 
-    const saveNewProduct: Function = () => {
+    const saveNewProduct: Function = async () => {
         const newProductProps = {
             sku: sku,
             name: name,
@@ -32,8 +32,7 @@ const AddProduct:FC = () => {
             length: length,
         }
         const newProduct = ProductFactory(newProductProps);
-        console.log("AddProduct: newProduct: "+ newProduct);
-        ProductsService.createProduct(newProduct);
+        await ProductsService.createProduct(newProduct);
     }
 
     const clearForm: Function = () => {
@@ -54,10 +53,10 @@ const AddProduct:FC = () => {
         navigate("/");
     }
 
-    const handleSubmit = (event?: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event?: FormEvent<HTMLFormElement>) => {
         if (event) event.preventDefault();
-        console.log("AddProduct: handling submit")
-        saveNewProduct();
+        console.log("AddProduct: handling submit");
+        await saveNewProduct()//.then((res) => {console.log(res)});
         navigate("/");
     }
 

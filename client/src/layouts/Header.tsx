@@ -10,7 +10,7 @@ interface IHeaderProps {
 
 const Header: FC<IHeaderProps> = ({ title, buttons }) => {
     const renderedButtons = buttons.map(button => (
-        <Button text={button.text} behaviour={button.behaviour} />
+        <Button key={button.text} text={button.text} behaviour={button.behaviour} />
     ));
     return (<div className='header'>
         <Title text={title} />

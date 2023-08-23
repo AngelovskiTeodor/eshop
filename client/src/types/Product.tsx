@@ -20,7 +20,11 @@ abstract class Product {
     constructor(sku: string, name: string, price:string) {
         this.sku = sku;
         this.name = name;
-        this.price = price;
+        const floated_price = parseFloat(price);
+        if (Number.isNaN(floated_price)) {
+            throw new TypeError("Invalid Price");
+        }
+        this.price = floated_price.toFixed(2) + " $";
     }
 } 
 

@@ -10,7 +10,7 @@ class Furniture extends Product {
     private $width;
     private $length;
 
-    public function (string $sku, string $name, string $price, string $height, string $width, string $length) {
+    public function __construct(string $sku, string $name, string $price, string $height, string $width, string $length) {
         parent::__construct($sku, $name, $price);
         $this->setHeight($height);
         $this->setWidth($width);
@@ -30,15 +30,15 @@ class Furniture extends Product {
     }
 
     public function setHeight($height) {
-        $this-> = $height;
+        $this->height = $height;
     }
 
     public function setWidth($width) {
-        $this-> = $width;
+        $this->width = $width;
     }
 
     public function setLength($length) {
-        $this-> = $length;
+        $this->length = $length;
     }
 
     public function jsonSerialize():mixed {

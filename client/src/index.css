@@ -40,7 +40,7 @@ h1 {
 .header {
   display: inline-flex;
   width: 100%;
-  border-bottom: #f9f9f9;
+  border-bottom-color: #f9f9f9;
   border-bottom-style: solid;
   border-bottom-width: 3px;
   margin-bottom: 1em;
@@ -82,8 +82,10 @@ h1 {
 }
 
 .product-cards-container {
-  display: block;
-  width: inherit;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .product-card {
@@ -93,7 +95,7 @@ h1 {
   margin: 2em;
   margin-top: 0.5em;
   margin-bottom: 1.5em;
-  display: block;
+  display: grid;
   float: left;
   box-shadow: 5px 3px 10px 2px darkgrey;
   border-radius: 8px;
@@ -124,7 +126,7 @@ h1 {
 
 .footer {
   margin-top: 1em;
-  border-top: #f9f9f9;
+  border-top-color: #f9f9f9;
   border-top-style: solid;
   border-top-width: 3px;
 }
@@ -136,7 +138,7 @@ h1 {
   }
 
   .header {
-    border-bottom: #1a1a1a;
+    border-bottom-color: #1a1a1a;
   }
 
   a:hover {
@@ -157,7 +159,7 @@ h1 {
   }
 
   .footer {
-    border-top: #1a1a1a;
+    border-top-color: #1a1a1a;
   }
 
 }
