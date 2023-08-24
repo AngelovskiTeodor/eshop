@@ -36,7 +36,6 @@ const ProductList: FC = () => {
     buttonProps[0] = {
         text: "ADD",
         behaviour: (event: MouseEvent) => {
-            console.log("ProductList: redirecting to /add-product")
             event.preventDefault();
             return navigate("/add-product");
         }

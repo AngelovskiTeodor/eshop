@@ -124,6 +124,10 @@ h1 {
   width: auto;
 }
 
+.input-field > .validation-error {
+  color: red;
+}
+
 .footer {
   margin-top: 1em;
   border-top-color: #f9f9f9;

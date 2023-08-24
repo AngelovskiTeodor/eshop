@@ -11,7 +11,7 @@ class ProductsService {
     }
 
     async createProduct(product: IProductApiData){
-        return productsApi.postForm<any>("", product).then((res) => {console.log("response is"); console.log(res)});
+        return productsApi.postForm<any>("", product);
     }
 
     updateProduct(product: IProductApiData){
