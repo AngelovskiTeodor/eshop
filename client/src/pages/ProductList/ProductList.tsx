@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from "react";
+import React, {FC, SyntheticEvent, useEffect} from "react";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Header from "../../layouts/Header";
 import Footer from "../../layouts/Footer";
@@ -13,24 +13,37 @@ const ProductList: FC = () => {
     const navigate = useNavigate();
     const [productsList, setProductsList] = useState(new Array<Product>(0));
 
-    useEffect(
-        () => {
-            ProductsService
-                .getAllProducts()
-                .then(
-                    (response) => {
-                        console.log("ProductList: Retrived products form api are " + response.data.toString());
-                        const products = response.data.map(
-                            (apiData) => {
-                                return ProductFactory(apiData);
-                            }
-                        );
-                        console.log(products);
-                        setProductsList(products);
-                    }
-                )
-        },[]
-    );
+    const updateProducts = () => {
+        ProductsService.getAllProducts().then((response) => {
+            const products = response.data.map(
+                (apiData) => {
+                    return ProductFactory(apiData);
+                }
+            );
+            setProductsList(products);
+        });
+    }
+
+    const removeSelectedProducts = () => {
+        const updatedProducts = productsList.filter( (product) => {
+            return product.selected == false;
+        });
+        setProductsList(updatedProducts)
+    }
+
+    useEffect(updateProducts, []);
+
+    const handleSelect = (event: SyntheticEvent) => {
+        const target = event.target as HTMLInputElement;
+        const sku: string = target.value;
+        const updatedProducts = productsList.map((product) => {
+            if (product.sku === sku) {
+                product.selected = target.checked;
+            }
+            return product;
+        })
+        setProductsList(updatedProducts);
+    }
 
     const buttonProps = new Array<IButtonProps> (2);
     buttonProps[0] = {
@@ -42,9 +55,9 @@ const ProductList: FC = () => {
     }
     buttonProps[1] = {
         text: "MASS DELETE",
-        behaviour: (event: MouseEvent) => {
+        behaviour: async (event: MouseEvent) => {
             event.preventDefault();
-            throw new Error("Not implemented");
+            await ProductsService.deleteProducts(productsList).then(() => {removeSelectedProducts();});
         }
     }
 
@@ -56,7 +69,7 @@ const ProductList: FC = () => {
                 {productsList.length > 0 && 
                     productsList.map(
                         (product: Product) => (
-                            <ProductCard key={product.sku} product={product}/>
+                            <ProductCard key={product.sku} product={product} onSelected={handleSelect} />
                         )
                     )
                 }

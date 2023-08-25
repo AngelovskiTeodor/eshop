@@ -1,5 +1,6 @@
 import productsApi from "../lib/axios";
 import IProductApiData from "../types/IProductApiData";
+import Product from "../types/Product";
 
 class ProductsService {
     getAllProducts() {
@@ -18,12 +19,17 @@ class ProductsService {
         return productsApi.put("", product);
     }
 
-    deleteProduct(sku: string){
-        return productsApi.delete(`?sku=${sku}`);
+    async deleteProduct(sku: string){
+        return await productsApi.delete(`?sku=${sku}`);
     }
 
-    deleteProducts(sku_list: Array<string>){
-        return productsApi.patch("", sku_list);
+    async deleteProducts(productsList: Array<Product>){
+        const deleteRequests = productsList.map(async (product) => {
+            if (product.selected) {
+                await this.deleteProduct(product.sku);
+            }
+        });
+        return await Promise.allSettled(deleteRequests);
     }
 }
 

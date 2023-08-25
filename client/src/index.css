@@ -109,6 +109,14 @@ h1 {
   box-shadow: 0 0 10px 5px navy;
 }
 
+.product-card-text:first-of-type {
+  margin-right: 2em;
+}
+
+.delete-checkbox {
+  width: 2em;
+}
+
 .input-field {
   display: flex;
   padding: 0.2em;

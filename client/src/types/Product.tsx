@@ -2,6 +2,7 @@ abstract class Product {
     sku: string;
     name: string;
     price: string;
+    selected: boolean;
 
     // get sku() {
     //     return this._sku;
@@ -25,6 +26,7 @@ abstract class Product {
             throw new TypeError("Invalid Price");
         }
         this.price = floated_price.toFixed(2) + " $";
+        this.selected = false;
     }
 } 
 
