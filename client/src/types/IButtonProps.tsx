@@ -1,6 +1,6 @@
 interface IButtonProps {
     text: string;
-    behaviour: Function;
+    behaviour: any;
 }
 
 export default IButtonProps;

@@ -1,4 +1,4 @@
-import React, {FC, SyntheticEvent, useEffect} from "react";
+import {FC, SyntheticEvent, useEffect} from "react";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Header from "../../layouts/Header";
 import Footer from "../../layouts/Footer";

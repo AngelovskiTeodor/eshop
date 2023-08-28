@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 import Button from '../components/Button/Button';
 import Title from '../components/Title/Title';
 import IButtonProps from '../types/IButtonProps';

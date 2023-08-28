@@ -1,5 +1,4 @@
-import React, {FC} from 'react';
-import Product from '../../types/Product';
+import {FC} from 'react';
 
 const ProductCard: FC<any> = ({product, onSelected}) => {
 

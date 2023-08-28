@@ -1,4 +1,4 @@
-import React, {FC, useState, SyntheticEvent, FormEvent, useEffect} from 'react';
+import {FC, useState, SyntheticEvent, FormEvent, useEffect} from 'react';
 import Footer from '../../layouts/Footer';
 import Header from '../../layouts/Header';
 import ProductFactory from '../../utils/ProductFactory';
@@ -194,10 +194,10 @@ const AddProduct:FC = () => {
 
     const validatePrice = (event: SyntheticEvent) => {
         event.preventDefault();
-        const floated_price = parseFloat(price ? price : "");
         if (!isSet(price)) {
             setShowEmptyPrice(true);
             return;
+        //  @ts-ignore            
         } else if (isNaN(price)) {
             setShowPriceNaN(true);
             return;
@@ -217,10 +217,10 @@ const AddProduct:FC = () => {
 
     const validateWeight = (event: SyntheticEvent) => {
         event.preventDefault();
-        const floated_weight = parseFloat(weight ? weight : "");
         if (!isSet(weight)) {
             setShowEmptyWeight(true);
             return;
+        //  @ts-ignore
         } else if (isNaN(weight)) {
             setShowWeightNaN(true);
             return;
@@ -231,10 +231,10 @@ const AddProduct:FC = () => {
 
     const validateSize = (event: SyntheticEvent) => {
         event.preventDefault();
-        const floated_size = parseFloat(size ? size : "");
         if (!isSet(size)) {
             setShowEmptySize(true);
             return;
+        //  @ts-ignore
         } else if (isNaN(size)) {
             setShowSizeNaN(true);
             return;
@@ -245,10 +245,10 @@ const AddProduct:FC = () => {
 
     const validateHeight = (event: SyntheticEvent) => {
         event.preventDefault();
-        const floated_height = parseFloat(height ? height : "");
         if (!isSet(height)) {
             setShowEmptyHeight(true);
             return;
+        //  @ts-ignore
         } else if (isNaN(height)) {
             setShowHeightNaN(true);
             return;
@@ -259,10 +259,10 @@ const AddProduct:FC = () => {
 
     const validateWidth = (event: SyntheticEvent) => {
         event.preventDefault();
-        const floated_width = parseFloat(width ? width : "");
         if (!isSet(width)) {
             setShowEmptyWidth(true);
             return;
+        //  @ts-ignore
         } else if (isNaN(width)) {
             setShowWidthNaN(true);
             return;
@@ -273,10 +273,10 @@ const AddProduct:FC = () => {
 
     const validateLength = (event: SyntheticEvent) => {
         event.preventDefault();
-        const floated_length = parseFloat(length ? length : "");
         if (!isSet(length)) {
             setShowEmptyLength(true);
             return;
+        //  @ts-ignore
         } else if (isNaN(length)) {
             setShowLengthNaN(true);
             return;

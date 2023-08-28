@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import {FC} from 'react';
 import IButtonProps from '../../types/IButtonProps';
 
 const Button: FC<IButtonProps> = ({ text, behaviour }) => {
