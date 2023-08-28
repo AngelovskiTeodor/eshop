@@ -19,30 +19,30 @@ const furnitureAdditionalProperties = (furniture: Furniture) => {
 function ProductFactory (props: IProductApiData): Product {
     if (props.weight) {
         let ret =  new Book(
-            props.sku,
-            props.name,
-            props.price,
-            props.weight
+            props.sku ? props.sku : "",
+            props.name ? props.name : "",
+            props.price ? props.price : "",
+            props.weight ? props.weight : ""
         );
         ret.additionalProperties = bookAdditionalProperties(ret);
         return ret;
     } else if (props.size) {
         let ret = new DVD(
-            props.sku,
-            props.name,
-            props.price,
-            props.size
+            props.sku ? props.sku : "",
+            props.name ? props.name : "",
+            props.price ? props.price : "",
+            props.size ? props.size : ""
         );
         ret.additionalProperties = dvdAdditionalProperties(ret);
         return ret;
     } else if (props.height && props.width && props.length) {
         let ret = new Furniture(
-            props.sku,
-            props.name,
-            props.price,
-            props.height,
-            props.width,
-            props.length
+            props.sku ? props.sku : "",
+            props.name ? props.name : "",
+            props.price ? props.price : "",
+            props.height ? props.height : "",
+            props.width ? props.width : "",
+            props.length ? props.length : ""
         );
         ret.additionalProperties = furnitureAdditionalProperties(ret);
         return ret;

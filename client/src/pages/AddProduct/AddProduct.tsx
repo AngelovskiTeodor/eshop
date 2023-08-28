@@ -197,6 +197,7 @@ const AddProduct:FC = () => {
         if (!isSet(price)) {
             setShowEmptyPrice(true);
             return;
+        // @ts-ignore
         } else if (isNaN(price)) {
             setShowPriceNaN(true);
             return;
@@ -219,6 +220,7 @@ const AddProduct:FC = () => {
         if (!isSet(weight)) {
             setShowEmptyWeight(true);
             return;
+        // @ts-ignore
         } else if (isNaN(weight)) {
             setShowWeightNaN(true);
             return;
@@ -232,6 +234,7 @@ const AddProduct:FC = () => {
         if (!isSet(size)) {
             setShowEmptySize(true);
             return;
+        // @ts-ignore
         } else if (isNaN(size)) {
             setShowSizeNaN(true);
             return;
@@ -245,6 +248,7 @@ const AddProduct:FC = () => {
         if (!isSet(height)) {
             setShowEmptyHeight(true);
             return;
+        // @ts-ignore
         } else if (isNaN(height)) {
             setShowHeightNaN(true);
             return;
@@ -258,6 +262,7 @@ const AddProduct:FC = () => {
         if (!isSet(width)) {
             setShowEmptyWidth(true);
             return;
+        // @ts-ignore
         } else if (isNaN(width)) {
             setShowWidthNaN(true);
             return;
@@ -271,6 +276,7 @@ const AddProduct:FC = () => {
         if (!isSet(length)) {
             setShowEmptyLength(true);
             return;
+        // @ts-ignore
         } else if (isNaN(length)) {
             setShowLengthNaN(true);
             return;
