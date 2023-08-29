@@ -398,7 +398,7 @@ const AddProduct:FC = () => {
                 <>
                     <div className='input-field'>
                         <label>Height (CM)</label>
-                        <input type='text' id='weight' onChange={handleHeightChange} onBlur={validateHeight} />
+                        <input type='text' id='height' onChange={handleHeightChange} onBlur={validateHeight} />
                     </div>
                     {
                         showEmptyHeight && <div className='input-field'>
