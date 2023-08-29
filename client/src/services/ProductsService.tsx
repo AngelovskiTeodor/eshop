@@ -20,7 +20,7 @@ class ProductsService {
     }
 
     async deleteProduct(sku: string){
-        return await productsApi.delete(`?sku=${sku}`);
+        return await productsApi.get(`/delete?sku=${sku}`);
     }
 
     async deleteProducts(productsList: Array<Product>){
