@@ -5,7 +5,7 @@ import ProductFactory from '../../utils/ProductFactory';
 import IButtonProps from '../../types/IButtonProps';
 import { useNavigate } from 'react-router-dom';
 import ProductsService from '../../services/ProductsService';
-import { isSet } from '../../utils/UtilityFunctions';
+import { elementExistsInList, getSkusFromList, isSet } from '../../utils/UtilityFunctions';
 
 const AddProduct:FC = () => {
     const navigate = useNavigate();
@@ -20,6 +20,9 @@ const AddProduct:FC = () => {
     const [width, setWidth] = useState<string | null>(null);
     const [length, setLength] = useState<string | null>(null);
 
+    const [existingSkusList, setExistingSkusList] = useState<Array<String>>(new Array<String>())
+
+    const [showExistingSku, setShowExistingSku] = useState<Boolean>(false);
     const [showEmptySku, setShowEmptySku] = useState<Boolean>(false);
     const [showEmptyName, setShowEmptyName] = useState<Boolean>(false);
     const [showEmptyPrice, setShowEmptyPrice] = useState<Boolean>(false);
@@ -35,6 +38,13 @@ const AddProduct:FC = () => {
     const [showWidthNaN, setShowWidthNaN] = useState<Boolean>(false);
     const [showEmptyLength, setShowEmptyLength] = useState<Boolean>(false);
     const [showLengthNaN, setShowLengthNaN] = useState<Boolean>(false);
+
+    useEffect(() => {
+        ProductsService.getAllProducts().then((response) => {
+            const skusList = getSkusFromList(response.data);
+            setExistingSkusList(skusList)
+        })
+    }, []);
 
     useEffect(() => {
         setShowEmptyType(false);
@@ -174,13 +184,26 @@ const AddProduct:FC = () => {
         setLength(newLength);
     }
 
+    const checkExistingSku = (sku: string | null) => {
+        const skuString = new String(sku);
+        if (elementExistsInList(existingSkusList, skuString.toString()) && skuString !== "") {
+            return true;
+        }
+        return false;
+    }
+
     const validateSku = (event: SyntheticEvent) => {
         event.preventDefault();
         if (!isSet(sku)) {
             setShowEmptySku(true);
             return;
         }
+        if (checkExistingSku(sku)) {
+            setShowExistingSku(true);
+            return
+        }
         setShowEmptySku(false);
+        setShowExistingSku(false);
     }
 
     const validateName = (event: SyntheticEvent) => {
@@ -303,6 +326,11 @@ const AddProduct:FC = () => {
                 <label>Sku</label>
                 <input type='text' id='sku' onChange={handleSkuChange} onBlur={validateSku} />
             </div>
+            {
+                showExistingSku && <div className='input-field'>
+                    <span className='validation-error'>A product with this SKU already exists. Please try different SKU</span>
+                </div>
+            }
             {
                 showEmptySku && <div className='input-field'>
                     <span className='validation-error'>The Sku field cannot be empty</span>
