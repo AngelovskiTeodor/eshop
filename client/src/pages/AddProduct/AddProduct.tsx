@@ -5,7 +5,7 @@ import ProductFactory from '../../utils/ProductFactory';
 import IButtonProps from '../../types/IButtonProps';
 import { useNavigate } from 'react-router-dom';
 import ProductsService from '../../services/ProductsService';
-import { isSet } from '../../utils/UtilityFunctions';
+import { elementExistsInList, getSkusFromList, isSet } from '../../utils/UtilityFunctions';
 
 const AddProduct:FC = () => {
     const navigate = useNavigate();
@@ -20,6 +20,9 @@ const AddProduct:FC = () => {
     const [width, setWidth] = useState<string | null>(null);
     const [length, setLength] = useState<string | null>(null);
 
+    const [existingSkusList, setExistingSkusList] = useState<Array<String>>(new Array<String>())
+
+    const [showExistingSku, setShowExistingSku] = useState<Boolean>(false);
     const [showEmptySku, setShowEmptySku] = useState<Boolean>(false);
     const [showEmptyName, setShowEmptyName] = useState<Boolean>(false);
     const [showEmptyPrice, setShowEmptyPrice] = useState<Boolean>(false);
@@ -35,6 +38,13 @@ const AddProduct:FC = () => {
     const [showWidthNaN, setShowWidthNaN] = useState<Boolean>(false);
     const [showEmptyLength, setShowEmptyLength] = useState<Boolean>(false);
     const [showLengthNaN, setShowLengthNaN] = useState<Boolean>(false);
+
+    useEffect(() => {
+        ProductsService.getAllProducts().then((response) => {
+            const skusList = getSkusFromList(response.data);
+            setExistingSkusList(skusList)
+        })
+    }, []);
 
     useEffect(() => {
         setShowEmptyType(false);
@@ -90,8 +100,39 @@ const AddProduct:FC = () => {
             showLengthNaN)
     }
 
+    const runBookValidation: Function = () => {
+        validateWeight();
+    }
+
+    const runDvdValidation: Function = () => {
+        validateSize();
+    }
+
+    const runFurnitureValidation: Function = () => {
+        validateHeight();
+        validateWidth();
+        validateLength();
+    }
+
+    const productTypeValidation: Record<string, Function> = {
+        "Book": runBookValidation,
+        "DVD": runDvdValidation,
+        "Furniture": runFurnitureValidation
+    }
+
+    const runFormValidation = () => {
+        validateSku();
+        validateName();
+        validatePrice();
+        validateType();
+        if (isSet(productType)) {
+            if (productType !== null) productTypeValidation[productType]()
+        }
+    }
+
     const handleSubmit = async (event?: FormEvent<HTMLFormElement>) => {
         if (event) event.preventDefault();
+        runFormValidation();
         if (!isValid()) {
             console.log("Invalid product data");
             return;
@@ -174,17 +215,31 @@ const AddProduct:FC = () => {
         setLength(newLength);
     }
 
-    const validateSku = (event: SyntheticEvent) => {
-        event.preventDefault();
-        if (!isSet(sku)) {
-            setShowEmptySku(true);
-            return;
+    const checkExistingSku = (sku: string | null) => {
+        const skuString = new String(sku);
+        if (elementExistsInList(existingSkusList, skuString.toString()) && skuString !== "") {
+            return true;
         }
-        setShowEmptySku(false);
+        return false;
     }
 
-    const validateName = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateSku = (/* event: SyntheticEvent */) => {
+        // event.preventDefault();
+        if (!isSet(sku)) {
+            setShowEmptySku(true);
+        }
+        else {
+            setShowEmptySku(false);
+        }
+        if (checkExistingSku(sku)) {
+            setShowExistingSku(true);
+        }
+        else {
+            setShowExistingSku(false);
+        }
+    }
+
+    const validateName = () => {
         if (!isSet(name)) {
             setShowEmptyName(true);
             return;
@@ -192,22 +247,24 @@ const AddProduct:FC = () => {
         setShowEmptyName(false);
     }
 
-    const validatePrice = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validatePrice = () => {
         if (!isSet(price)) {
             setShowEmptyPrice(true);
-            return;
-        // @ts-ignore
-        } else if (isNaN(price)) {
-            setShowPriceNaN(true);
-            return;
+            setShowPriceNaN(false);
         }
-        setShowEmptyPrice(false);
-        setShowPriceNaN(false);
+        else {
+            setShowEmptyPrice(false);
+            // @ts-ignore
+            if (isNaN(price)) {
+                setShowPriceNaN(true);
+            }
+            else {
+                setShowPriceNaN(false);
+            }
+        }
     }
 
-    const validateType = (event: SyntheticEvent) => {
-        if (event) event.preventDefault();
+    const validateType = () => {
         if (!isSet(productType)) {
             setShowEmptyType(true);
             return;
@@ -215,74 +272,89 @@ const AddProduct:FC = () => {
         setShowEmptyType(false);
     }
 
-    const validateWeight = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateWeight = () => {
         if (!isSet(weight)) {
             setShowEmptyWeight(true);
-            return;
-        // @ts-ignore
-        } else if (isNaN(weight)) {
-            setShowWeightNaN(true);
-            return;
+            setShowWeightNaN(false);
         }
-        setShowEmptyWeight(false);
-        setShowWeightNaN(false);
+        else {
+            setShowEmptyWeight(false);
+            // @ts-ignore
+            if (isNaN(weight)) {
+                setShowWeightNaN(true);
+            }
+            else {
+                setShowWeightNaN(false);
+            }
+        }
     }
 
-    const validateSize = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateSize = () => {
         if (!isSet(size)) {
             setShowEmptySize(true);
-            return;
-        // @ts-ignore
-        } else if (isNaN(size)) {
-            setShowSizeNaN(true);
-            return;
+            setShowSizeNaN(false);
         }
-        setShowEmptySize(false);
-        setShowSizeNaN(false);
+        else {
+            setShowEmptySize(false);
+            // @ts-ignore
+            if (isNaN(size)) {
+                setShowSizeNaN(true);
+            }
+            else {
+                setShowSizeNaN(false);
+            }
+        }
     }
 
-    const validateHeight = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateHeight = () => {
         if (!isSet(height)) {
             setShowEmptyHeight(true);
-            return;
-        // @ts-ignore
-        } else if (isNaN(height)) {
-            setShowHeightNaN(true);
-            return;
+            setShowHeightNaN(false);
         }
-        setShowEmptyHeight(false);
-        setShowHeightNaN(false);
+        else {
+            setShowEmptyHeight(false);
+            // @ts-ignore
+            if (isNaN(height)) {
+                setShowHeightNaN(true);
+            }
+            else {
+                setShowHeightNaN(false);
+            }
+        }
     }
 
-    const validateWidth = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateWidth = () => {
         if (!isSet(width)) {
             setShowEmptyWidth(true);
-            return;
-        // @ts-ignore
-        } else if (isNaN(width)) {
-            setShowWidthNaN(true);
-            return;
+            setShowWidthNaN(false);
         }
-        setShowEmptyWidth(false);
-        setShowWidthNaN(false);
+        else {
+            setShowEmptyWidth(false);
+            // @ts-ignore
+            if (isNaN(width)) {
+                setShowWidthNaN(true);
+            }
+            else {
+                setShowWidthNaN(false);
+            }
+        }
     }
 
-    const validateLength = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateLength = () => {
         if (!isSet(length)) {
             setShowEmptyLength(true);
-            return;
-        // @ts-ignore
-        } else if (isNaN(length)) {
-            setShowLengthNaN(true);
-            return;
+            setShowLengthNaN(false);
         }
-        setShowEmptyLength(false);
-        setShowLengthNaN(false);
+        else {
+            setShowEmptyLength(false);
+            // @ts-ignore
+            if (isNaN(length)) {
+                setShowLengthNaN(true);
+            }
+            else {
+                setShowLengthNaN(false);
+            }
+        }
     }
 
     const buttonProps = new Array<IButtonProps>(2);
@@ -303,6 +375,11 @@ const AddProduct:FC = () => {
                 <label>Sku</label>
                 <input type='text' id='sku' onChange={handleSkuChange} onBlur={validateSku} />
             </div>
+            {
+                showExistingSku && <div className='input-field'>
+                    <span className='validation-error'>A product with this SKU already exists. Please try different SKU</span>
+                </div>
+            }
             {
                 showEmptySku && <div className='input-field'>
                     <span className='validation-error'>The Sku field cannot be empty</span>
