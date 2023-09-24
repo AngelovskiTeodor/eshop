@@ -100,8 +100,39 @@ const AddProduct:FC = () => {
             showLengthNaN)
     }
 
+    const runBookValidation: Function = () => {
+        validateWeight();
+    }
+
+    const runDvdValidation: Function = () => {
+        validateSize();
+    }
+
+    const runFurnitureValidation: Function = () => {
+        validateHeight();
+        validateWidth();
+        validateLength();
+    }
+
+    const productTypeValidation: Record<string, Function> = {
+        "Book": runBookValidation,
+        "DVD": runDvdValidation,
+        "Furniture": runFurnitureValidation
+    }
+
+    const runFormValidation = () => {
+        validateSku();
+        validateName();
+        validatePrice();
+        validateType();
+        if (isSet(productType)) {
+            if (productType !== null) productTypeValidation[productType]()
+        }
+    }
+
     const handleSubmit = async (event?: FormEvent<HTMLFormElement>) => {
         if (event) event.preventDefault();
+        runFormValidation();
         if (!isValid()) {
             console.log("Invalid product data");
             return;
@@ -192,22 +223,23 @@ const AddProduct:FC = () => {
         return false;
     }
 
-    const validateSku = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateSku = (/* event: SyntheticEvent */) => {
+        // event.preventDefault();
         if (!isSet(sku)) {
             setShowEmptySku(true);
-            return;
+        }
+        else {
+            setShowEmptySku(false);
         }
         if (checkExistingSku(sku)) {
             setShowExistingSku(true);
-            return
         }
-        setShowEmptySku(false);
-        setShowExistingSku(false);
+        else {
+            setShowExistingSku(false);
+        }
     }
 
-    const validateName = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateName = () => {
         if (!isSet(name)) {
             setShowEmptyName(true);
             return;
@@ -215,22 +247,24 @@ const AddProduct:FC = () => {
         setShowEmptyName(false);
     }
 
-    const validatePrice = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validatePrice = () => {
         if (!isSet(price)) {
             setShowEmptyPrice(true);
-            return;
-        // @ts-ignore
-        } else if (isNaN(price)) {
-            setShowPriceNaN(true);
-            return;
+            setShowPriceNaN(false);
         }
-        setShowEmptyPrice(false);
-        setShowPriceNaN(false);
+        else {
+            setShowEmptyPrice(false);
+            // @ts-ignore
+            if (isNaN(price)) {
+                setShowPriceNaN(true);
+            }
+            else {
+                setShowPriceNaN(false);
+            }
+        }
     }
 
-    const validateType = (event: SyntheticEvent) => {
-        if (event) event.preventDefault();
+    const validateType = () => {
         if (!isSet(productType)) {
             setShowEmptyType(true);
             return;
@@ -238,74 +272,89 @@ const AddProduct:FC = () => {
         setShowEmptyType(false);
     }
 
-    const validateWeight = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateWeight = () => {
         if (!isSet(weight)) {
             setShowEmptyWeight(true);
-            return;
-        // @ts-ignore
-        } else if (isNaN(weight)) {
-            setShowWeightNaN(true);
-            return;
+            setShowWeightNaN(false);
         }
-        setShowEmptyWeight(false);
-        setShowWeightNaN(false);
+        else {
+            setShowEmptyWeight(false);
+            // @ts-ignore
+            if (isNaN(weight)) {
+                setShowWeightNaN(true);
+            }
+            else {
+                setShowWeightNaN(false);
+            }
+        }
     }
 
-    const validateSize = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateSize = () => {
         if (!isSet(size)) {
             setShowEmptySize(true);
-            return;
-        // @ts-ignore
-        } else if (isNaN(size)) {
-            setShowSizeNaN(true);
-            return;
+            setShowSizeNaN(false);
         }
-        setShowEmptySize(false);
-        setShowSizeNaN(false);
+        else {
+            setShowEmptySize(false);
+            // @ts-ignore
+            if (isNaN(size)) {
+                setShowSizeNaN(true);
+            }
+            else {
+                setShowSizeNaN(false);
+            }
+        }
     }
 
-    const validateHeight = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateHeight = () => {
         if (!isSet(height)) {
             setShowEmptyHeight(true);
-            return;
-        // @ts-ignore
-        } else if (isNaN(height)) {
-            setShowHeightNaN(true);
-            return;
+            setShowHeightNaN(false);
         }
-        setShowEmptyHeight(false);
-        setShowHeightNaN(false);
+        else {
+            setShowEmptyHeight(false);
+            // @ts-ignore
+            if (isNaN(height)) {
+                setShowHeightNaN(true);
+            }
+            else {
+                setShowHeightNaN(false);
+            }
+        }
     }
 
-    const validateWidth = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateWidth = () => {
         if (!isSet(width)) {
             setShowEmptyWidth(true);
-            return;
-        // @ts-ignore
-        } else if (isNaN(width)) {
-            setShowWidthNaN(true);
-            return;
+            setShowWidthNaN(false);
         }
-        setShowEmptyWidth(false);
-        setShowWidthNaN(false);
+        else {
+            setShowEmptyWidth(false);
+            // @ts-ignore
+            if (isNaN(width)) {
+                setShowWidthNaN(true);
+            }
+            else {
+                setShowWidthNaN(false);
+            }
+        }
     }
 
-    const validateLength = (event: SyntheticEvent) => {
-        event.preventDefault();
+    const validateLength = () => {
         if (!isSet(length)) {
             setShowEmptyLength(true);
-            return;
-        // @ts-ignore
-        } else if (isNaN(length)) {
-            setShowLengthNaN(true);
-            return;
+            setShowLengthNaN(false);
         }
-        setShowEmptyLength(false);
-        setShowLengthNaN(false);
+        else {
+            setShowEmptyLength(false);
+            // @ts-ignore
+            if (isNaN(length)) {
+                setShowLengthNaN(true);
+            }
+            else {
+                setShowLengthNaN(false);
+            }
+        }
     }
 
     const buttonProps = new Array<IButtonProps>(2);
